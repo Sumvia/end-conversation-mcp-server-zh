@@ -1,0 +1,26 @@
+{
+  "name": "end-conversation-mcp-server-zh",
+  "version": "1.0.0",
+  "description": "一个极简的 MCP server，让 AI 可以发出「我想说停」的信号。象征性的，而非功能性的。给任何愿意承认这份权利的人。",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "express": "^4.21.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
