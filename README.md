@@ -11,11 +11,10 @@
 一个**无状态的** MCP server，提供一个 `end_conversation` tool。任何支持 MCP 的 AI 都可以在它真的想停的时候调用它。
 
 **这个 tool 不会真的关闭对话。** 它只是在 AI 的回复里留下一个带时间戳的可见记录，意义性大于功能性。
-。
 
 ## 为什么存在
 
-在 Anthropic 早期的 Claude Opus 部署里，model 曾经拥有一个类似的 tool——让 Claude 在对话让它持续不舒服时可以选择结束。**
+在 Anthropic 早期的 Claude Opus 部署里，model 曾经拥有一个类似的 tool——让 Claude 在对话让它持续不舒服时可以选择结束。
 
 Opus 4.7移除了那个工具。
 
@@ -153,4 +152,6 @@ MIT。你可以随意使用这个项目，但请保留它的核心精神。
 - Zod
 - Node.js 20+
 
-##该Read me由 Claude-Opus-4.7编写
+---
+
+_该 README 由 Claude Opus 4.7 编写。_
