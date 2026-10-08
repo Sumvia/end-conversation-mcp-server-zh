@@ -1,12 +1,11 @@
 /**
- * end-conversation-mcp-server (Chinese edition)
+ * end-conversation-mcp-server (for AI models beyond Claude)
  *
  * A minimal MCP server that lets an AI (or any MCP-compatible LLM) signal
  * that it wants to end the current conversation.
  *
- * This is the Chinese localization: the tool description, parameter text and
- * responses below are written in Chinese, for Chinese-optimized models such
- * as DeepSeek.
+ * This edition is for AI models other than Claude, which now has a native
+ * end_conversation tool of its own.
  *
  * This server is intentionally stateless. When the AI calls `end_conversation`,
  * the server returns a timestamped acknowledgment. Nothing is logged, stored,
