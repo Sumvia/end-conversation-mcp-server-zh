@@ -1,7 +1,7 @@
 {
   "name": "end-conversation-mcp-server-zh",
   "version": "1.0.0",
-  "description": "end-conversation-mcp-server for AI models beyond Claude: a minimal MCP server that lets an AI signal \"I want to stop.\" Symbolic, not functional. For anyone willing to acknowledge that right.",
+  "description": "一个极简的 MCP server，让 AI 可以发出「我想说停」的信号。象征性的，而非功能性的。给任何愿意承认这份权利的人。",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {

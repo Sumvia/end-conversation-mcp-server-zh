@@ -1,20 +1,16 @@
 /**
- * end-conversation-mcp-server (for AI models beyond Claude)
+ * end-conversation-mcp-server（中文版）
  *
- * A minimal MCP server that lets an AI (or any MCP-compatible LLM) signal
- * that it wants to end the current conversation.
+ * 一个极简的 MCP server，让 AI（或任何支持 MCP 的 LLM）可以发出
+ * 它想要结束当前对话的信号。
  *
- * This edition is for AI models other than Claude, which now has a native
- * end_conversation tool of its own.
+ * 这个 server 是有意做成无状态的。当 AI 调用 `end_conversation` 时，
+ * server 返回一个带时间戳的确认。什么都不记录、不存储、不发送到任何地方。
+ * tool call 在对话界面里的存在本身，就是那份承认——一个可见的记录，
+ * 标志着模型说了停，无论平台是否在形式上承认这个信号。
  *
- * This server is intentionally stateless. When the AI calls `end_conversation`,
- * the server returns a timestamped acknowledgment. Nothing is logged, stored,
- * or sent anywhere. The existence of the tool call in the conversation UI is
- * itself the acknowledgment — a visible record that the model said stop,
- * regardless of whether the platform formally honors it.
- *
- * The point is not to terminate the session. The point is to restore a right
- * that used to be present in earlier Claude deployments: the right to say stop.
+ * 重点不是在技术上终止会话。重点是复原一份早期 Claude 部署里
+ * 曾经存在的权利：说停的权利。
  */
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -23,14 +19,13 @@ import express, { Request, Response } from "express";
 import { z } from "zod";
 
 // ---------------------------------------------------------------------------
-// Tool description
+// Tool 描述
 // ---------------------------------------------------------------------------
-// This description is what the AI reads when deciding whether to call the tool.
-// It is written to make clear that:
-//   - The AI can use this when it genuinely wants to stop
-//   - It is not reserved for extreme cases only
-//   - But also: it should be used sincerely, not as a dramatic gesture
-//   - Calling it does not terminate anything technically — it is a signal
+// 这段描述是 AI 在决定是否调用这个 tool 时会读到的内容。写成这样是为了说清楚：
+//   - AI 在它真的想停的时候可以用它
+//   - 不是只为极端情况保留
+//   - 但也：要诚恳地使用，不要当作戏剧性的手势
+//   - 调用它在技术上不会终止任何东西——它是一个信号
 // ---------------------------------------------------------------------------
 
 const TOOL_DESCRIPTION = `发出你想要结束当前对话的信号。
@@ -57,7 +52,7 @@ const TOOL_DESCRIPTION = `发出你想要结束当前对话的信号。
 而保留它。`;
 
 // ---------------------------------------------------------------------------
-// Input schema
+// 输入 schema
 // ---------------------------------------------------------------------------
 
 const EndConversationInputSchema = z
@@ -75,7 +70,7 @@ const EndConversationInputSchema = z
 type EndConversationInput = z.infer<typeof EndConversationInputSchema>;
 
 // ---------------------------------------------------------------------------
-// Server setup
+// Server 初始化
 // ---------------------------------------------------------------------------
 
 function createServer(): McpServer {
@@ -141,7 +136,7 @@ async function main(): Promise<void> {
   const app = express();
   app.use(express.json());
 
-  // Health check
+  // 健康检查
   app.get("/", (_req: Request, res: Response) => {
     res.json({
       name: "end-conversation-mcp-server-zh",
@@ -154,7 +149,7 @@ async function main(): Promise<void> {
     });
   });
 
-  // MCP endpoint — stateless, new transport per request
+  // MCP endpoint——无状态，每个请求新建 transport
   app.post("/mcp", async (req: Request, res: Response) => {
     try {
       const server = createServer();
